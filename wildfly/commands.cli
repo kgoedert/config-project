@@ -2,6 +2,17 @@ batch
 
 /subsystem=datasources/jdbc-driver=mysqlDriver:add(driver-name=mysqlDriver,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.jdbc.Driver)
 
-data-source add --name=sample-ds --driver-name=mysqlDriver --jndi-name=java:/movie-ds --connection-url=jdbc:mysql://10.1.1.173:3306/movies?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8&amp;characterEncoding=UTF-8 --user-name=root --password=padrao --use-java-context=true --max-pool-size=40 --min-pool-size=0 --enabled=true --prepared-statements-cache-size=32 --share-prepared-statements=true --transaction-isolation=TRANSACTION_READ_COMMITTED --check-valid-connection-sql="select 1"
+data-source add --name=sample-ds --driver-name=mysqlDriver --jndi-name=java:/movie-ds --connection-url=jdbc:mysql://localhost:3306/movies?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8&amp;characterEncoding=UTF-8 --user-name=root --password=padrao --use-java-context=true --max-pool-size=40 --min-pool-size=0 --enabled=true --prepared-statements-cache-size=32 --share-prepared-statements=true --transaction-isolation=TRANSACTION_READ_COMMITTED --check-valid-connection-sql="select 1"
+
+/subsystem=undertow/configuration=filter/response-header=Access-Control-Allow-Origin/:add(header-name="Access-Control-Allow-Origin", header-value="*")
+/subsystem=undertow/configuration=filter/response-header=Access-Control-Allow-Methods/:add(header-name="Access-Control-Allow-Methods", header-value="GET, DELETE, POST, OPTIONS, PUT")
+/subsystem=undertow/configuration=filter/response-header=Access-Control-Allow-Headers/:add(header-name="Access-Control-Allow-Headers", header-value="accept, authorization, content-type, x-requested-with")
+/subsystem=undertow/configuration=filter/response-header=Access-Control-Allow-Credentials/:add(header-name="Access-Control-Allow-Credentials",header-value="true")
+/subsystem=undertow/configuration=filter/response-header=Access-Control-Max-Age/:add(header-name="Access-Control-Max-Age", header-value="1209600")
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=Access-Control-Allow-Origin:add()
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=Access-Control-Allow-Methods:add()
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=Access-Control-Allow-Headers:add()
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=Access-Control-Allow-Credentials:add()
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=Access-Control-Max-Age:add()
 
 run-batch
