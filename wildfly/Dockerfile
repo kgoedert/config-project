@@ -1,4 +1,4 @@
-FROM jboss/wildfly:12.0.0.Final
+FROM jboss/wildfly:13.0.0.Final
 
 ADD execute_cli.sh /opt/jboss/wildfly/cli/execute_cli.sh
 ADD commands.cli /opt/jboss/wildfly/cli/commands.cli
